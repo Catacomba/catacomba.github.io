@@ -301,181 +301,175 @@ const App = () => {
 
   return (
     <div className="flex flex-col items-center max-w-lg mx-auto p-4 bg-gray-50 rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-4">Vibedoku</h1>
+      <h1 className="text-2xl font-bold mb-4 mt-4">Vibedoku</h1>
 
-      <ul>
-        <li className="text-1xl font-bold mb-1">Catacomba's sudoku experiment, "vibe coded" with claude sonet in ~20 minutes</li>
-        <li className="text-1xl font-bold mb-1">Published on github pages in ~3 hours</li>
-        <li className="text-1xl font-bold mb-1">The numbers are <i>vibin</i> (™)</li>
-      </ul>
-
-      <h2 className="text-1xl font-bold mb-4">Pros:</h2>
-      <ul class="list-disc">
-        <li>
-          <p> Creating the game with claude sonet was incredibly fast and easy, a true <TextLink text="vibe" link="https://claude.ai/share/6dc1c34b-f99c-406f-b2e7-53435e5de382" /></p>
-        </li>
-        <li>The logic of the game worked with the very first version, which is impressive but I bet there are alot of sodoku implementations on the web already</li>
-        <li>Iterating was also easy and stable (it didn't break existing stuff when I wanted to add new features)</li>
-        <li>I learned a bit about react components, vite, tailwind</li>
-      </ul>
-
-      <h2 className="text-1xl font-bold mb-4">Cons:</h2>
-      <ul class="list-disc">
-        <li>Claude sonet would sometimes just stop working or would work at a very slow pace (1 token per few seconds)</li>
-        <li>Ran out of free requests after 4 promts, which means that if i wanted to iterate further I would need to stop <i>vibing</i></li>
-        <li>I have almost no idea how the code works (I never coded with react components before), if I handed this over to a coworker and they asked me to explain it... it wouldn't matter who begins reverse engineering it, me or them</li>
-        <li>When setting up the deploy pipeline and publishing on github pages other AI chats (ChatGPT) weren't that usefull... I would go from one error message to another, eventually becoming stuck in a loop</li>
-        <li>Even though the code worked instantly in Cloude Sonet, it took some effort to get it to run and work locally</li>
-      </ul>
-
-      <h2 className="text-1xl font-bold mb-4">Final thoughts:</h2>
-      <ul class="list-disc">
-        <li>
-          <p className="mb-4">Reproducibility: Would the same prompts yield the same results?</p>
-          <p className="mb-4">
-            If we are to use AI as a tool and evaluate people based on their "expertise" when using such tools, we have to question our selves first.
-            How are we to evaluete someones skill level with a tool which is inherently random?
-            You might have two programmers, who input the exact same prompts to a LLM and get different results.
-            Are we going to say that one of those is a good and the other a bad programmer?
-          </p>
-          ...
-          Derek Muller (Veritasium), in his video
-          <a href="https://www.youtube.com/watch?v=5eW6Eagr9XA" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
-            The 4 things it takes to be an expert
-            <svg class="w-4 h-4 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-          </a>
-          presents that for people to become experts in a field, the field needs to adhere to the following 4 requirements.
-
-          <ul class="list-decimal">
-            <li>Many repetitions (We can spam LLMs with various questions and requests (unless Claude says that we gota wait for a day 😜))🟢</li>
-            <li>Timely feedback (The LLMs respond quite quick) 🟢</li>
-            <li>Deliberate practice (This means to spend time outside of using the tool, to study the tool, environment or game... which becomes harder as the size of a LLM or neural network increases and at some point becomes a 'black box') 🟡</li>
-            <li>Valid environment (An environment with as little randomness as possible... there are no 'experts in roulette'... if for the same input of we might get different results this ) 🔴</li>
-          </ul>
-
-          ...
-          <a href="https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)" class="inline-flex items-center font-medium text-blue-600 dark:text-blue-500 hover:underline">
-            ...
-            <svg class="w-4 h-4 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-          </a>
-          ...
-        </li>
-        <li>My belief is that similar AI tools are going to be great at producing "boilerplate" code. Now the question becomes, when is a piece of code "boilerplate"? If it can reproduce a sodoku game, can we say that the logic of a sodoku game is "just boilerplate", what about the other features like the (inspired by Severance) wiggly numbers? Im not sure I have seen a "feature" like that before, yet still Claude created the feature in its first attempt.</li>
-      </ul>
-
-      <div className="mb-4 flex items-center flex-wrap justify-center gap-2">
-        <select
-          value={difficulty}
-          onChange={handleDifficultyChange}
-          className="p-2 border rounded"
-        >
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
-        <button
-          onClick={() => generateSudoku(difficulty)}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          New Game
-        </button>
-        <button
-          onClick={toggleValidation}
-          className={`px-4 py-2 rounded ${showValidation ? 'bg-green-500 text-white' : 'bg-gray-300'}`}
-        >
-          {showValidation ? 'Validation: ON' : 'Validation: OFF'}
-        </button>
-      </div>
-
-      <div className="w-full mb-4 px-2">
-        <div className="flex items-center mb-2">
-          <span className="w-24 text-sm">Animation Speed:</span>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={animationSpeed}
-            onChange={handleSpeedChange}
-            className="flex-grow mx-2"
-          />
-          <span className="w-8 text-center">{animationSpeed}</span>
+      <div className="flex flex-col items-center max-w-lg mx-auto p-4 bg-gray-50 rounded-lg shadow-lg border-2 rounded-sm">
+        <div className="mb-4 flex items-center flex-wrap justify-center gap-2">
+          <select
+            value={difficulty}
+            onChange={handleDifficultyChange}
+            className="p-2 border rounded"
+          >
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+          <button
+            onClick={() => generateSudoku(difficulty)}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            New Game
+          </button>
+          <button
+            onClick={toggleValidation}
+            className={`px-4 py-2 rounded ${showValidation ? 'bg-green-500 text-white' : 'bg-gray-300'}`}
+          >
+            {showValidation ? 'Validation: ON' : 'Validation: OFF'}
+          </button>
         </div>
-        <div className="flex items-center">
-          <span className="w-24 text-sm">Wiggle Distance:</span>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={animationDistance}
-            onChange={handleDistanceChange}
-            className="flex-grow mx-2"
-          />
-          <span className="w-8 text-center">{animationDistance}</span>
+
+        <div className="w-full mb-4 px-2">
+          <div className="flex items-center mb-2">
+            <span className="w-24 text-sm">Animation Speed:</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={animationSpeed}
+              onChange={handleSpeedChange}
+              className="flex-grow mx-2"
+            />
+            <span className="w-8 text-center">{animationSpeed}</span>
+          </div>
+          <div className="flex items-center">
+            <span className="w-24 text-sm">Wiggle Distance:</span>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={animationDistance}
+              onChange={handleDistanceChange}
+              className="flex-grow mx-2"
+            />
+            <span className="w-8 text-center">{animationDistance}</span>
+          </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-9 gap-0 border-2 border-black mb-4">
-        {board.map((row, rowIndex) => (
-          row.map((cell, colIndex) => {
-            const baseColor = (Math.floor(rowIndex / 3) + Math.floor(colIndex / 3)) % 2 === 0 ? 'bg-gray-100' : 'bg-white';
-            const bgColor = getCellBackground(rowIndex, colIndex, baseColor);
-            const animation = animations[rowIndex][colIndex];
+        <div className="grid grid-cols-9 gap-0 border-2 border-black mb-4">
+          {board.map((row, rowIndex) => (
+            row.map((cell, colIndex) => {
+              const baseColor = (Math.floor(rowIndex / 3) + Math.floor(colIndex / 3)) % 2 === 0 ? 'bg-gray-100' : 'bg-white';
+              const bgColor = getCellBackground(rowIndex, colIndex, baseColor);
+              const animation = animations[rowIndex][colIndex];
 
-            return (
-              <div
-                key={`${rowIndex}-${colIndex}`}
-                className={`w-8 h-8 flex items-center justify-center 
+              return (
+                <div
+                  key={`${rowIndex}-${colIndex}`}
+                  className={`w-8 h-8 flex items-center justify-center 
                     ${bgColor}
                     ${rowIndex % 3 === 2 && rowIndex !== 8 ? 'border-b border-black' : 'border-b border-gray-300'} 
                     ${colIndex % 3 === 2 && colIndex !== 8 ? 'border-r border-black' : 'border-r border-gray-300'}
                     cursor-pointer relative overflow-hidden`}
-                onClick={() => handleCellClick(rowIndex, colIndex)}
-              >
-                {cell !== 0 && (
-                  <span
-                    className={`${initial[rowIndex][colIndex] ? 'font-bold' : 'text-blue-600'} absolute`}
-                    style={{
-                      transform: `translate(${animation.x}px, ${animation.y}px)`,
-                      transition: 'transform 0.1s ease-out'
-                    }}
-                  >
-                    {cell}
-                  </span>
-                )}
-              </div>
-            );
-          })
-        ))}
-      </div>
-
-      <div className="grid grid-cols-3 gap-2 mb-4">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
-          <button
-            key={num}
-            className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300"
-            onClick={() => handleNumberInput(num)}
-          >
-            {num}
-          </button>
-        ))}
-      </div>
-
-      <button
-        className="w-10 h-10 bg-red-200 rounded-full flex items-center justify-center hover:bg-red-300 mb-4"
-        onClick={() => handleNumberInput(0)}
-      >
-        X
-      </button>
-
-      {isComplete && (
-        <div className="mt-4 p-2 bg-green-100 border border-green-500 rounded text-green-700">
-          Congratulations! You've solved the puzzle!
+                  onClick={() => handleCellClick(rowIndex, colIndex)}
+                >
+                  {cell !== 0 && (
+                    <span
+                      className={`${initial[rowIndex][colIndex] ? 'font-bold' : 'text-blue-600'} absolute`}
+                      style={{
+                        transform: `translate(${animation.x}px, ${animation.y}px)`,
+                        transition: 'transform 0.1s ease-out'
+                      }}
+                    >
+                      {cell}
+                    </span>
+                  )}
+                </div>
+              );
+            })
+          ))}
         </div>
-      )}
+
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
+            <button
+              key={num}
+              className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300"
+              onClick={() => handleNumberInput(num)}
+            >
+              {num}
+            </button>
+          ))}
+        </div>
+
+        <button
+          className="w-10 h-10 bg-red-200 rounded-full flex items-center justify-center hover:bg-red-300 mb-4"
+          onClick={() => handleNumberInput(0)}
+        >
+          X
+        </button>
+
+        {isComplete && (
+          <div className="mt-4 p-2 bg-green-100 border border-green-500 rounded text-green-700">
+            Congratulations! You've solved the puzzle!
+          </div>
+        )}
+      </div>
+
+      <ul>
+        <li className="text-base font-bold mb-1 mt-4">Catacomba's sudoku experiment, "vibe coded" with claude sonet in ~20 minutes</li>
+        <li className="text-base font-bold mb-1">Published on github pages in ~3 hours</li>
+        <li className="text-base font-bold mb-1">The numbers are <i>vibin</i> (™)</li>
+      </ul>
+
+      <h2 className="text-1xl font-bold">My thoughts on the vibe coding 'technique' experiment</h2>
+      <h2 className="text-1xl font-bold mb-4 mt-4">Pros:</h2>
+      <ul class="list-disc">
+        <li>
+          <p> Creating the game with claude sonet was incredibly fast and easy, a true <TextLink text="vibe" link="https://claude.ai/share/6dc1c34b-f99c-406f-b2e7-53435e5de382" /></p>
+        </li>
+        <li>The logic of the game worked with the very first version, which is impressive but I bet there are a lot of sudoku implementations on the web already</li>
+        <li>Iterating was also easy and stable (it didn't break existing stuff when I wanted to add new features)</li>
+        <li>I learned a bit about react components, vite, tailwind</li>
+      </ul>
+
+      <h2 className="text-1xl font-bold mb-4 mt-4">Cons:</h2>
+      <ul class="list-disc">
+        <li>Claude sonet would sometimes just stop working or would work at a very slow pace (1 token per few seconds)</li>
+        <li>Ran out of free requests after 4 prompts, which means that if i wanted to iterate further I would need to stop <i>vibing</i></li>
+        <li>I have almost no idea how the code works (I never coded with react components before), if I handed this over to a coworker and they asked me to explain it... it wouldn't matter who begins reverse engineering it, me or them</li>
+        <li>When setting up the deploy pipeline and publishing on github pages other AI chats (ChatGPT) weren't that useful... I would go from one error message to another, eventually becoming stuck in a loop</li>
+        <li>Even though the code worked instantly in Cloude Sonet, it took some effort to get it to run and work locally</li>
+      </ul>
+
+      <h2 className="text-1xl font-bold mb-4 mt-4">Food for thought:</h2>
+      <ul class="list-disc">
+        <li className='mb-4'>
+          <p className="mb-4">Reproducibility issues: The same prompts don't produce the same code.</p>
+          <p className="mb-4">
+            If we are to use AI as a tool and potentially evaluate people based on their "expertise" when using such tools, how do we take into account the inherent randomness of the responses of LLMs.
+            If you have two programmers, who input the exact same prompts and get different results, how can you evaluate their 'expertise' with the LLM?
+            Can we say that either of those programmers are better than the other? I don't think so.
+          </p>
+
+          Derek Muller (Veritasium), in his video <TextLink text="The 4 things it takes to be an expert" link={"https://www.youtube.com/watch?v=5eW6Eagr9XA"} /> explains, that for people to become experts in a field, the field needs to adhere to the following 4 requirements.
+
+          <dl>
+            <dt className='font-bold'>Many repetitions 🟢</dt>
+            <dd className='pl-4'>We can, more or less, spam LLMs with various questions and requests (unless Claude says that we must wait for a day 😜)</dd>
+
+            <dt className='font-bold'>Timely feedback 🟢</dt>
+            <dd className='pl-4'>LLMs do respond quite quickly, we don't need to wait days or years to get a response 🟢</dd>
+
+            <dt className='font-bold'>Deliberate practice 🟡</dt>
+            <dd className='pl-4'>This means to be able to spend time outside of using the tool, to study the tool, environment or game... which becomes harder as the size of a LLM or neural network increases and at some point becomes a 'black box'</dd>
+
+            <dt className='font-bold'>Valid environment 🔴</dt>
+            <dd className='pl-4'>A stable environment with as little randomness as possible... As Derek says: 'there are no experts in roulette'... LLM responses are inherently <TextLink text="random" link="https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)" /> which means that we cant really say that one can become an 'expert' in this 'field' of LLM usage.</dd>
+          </dl>
+        </li>
+        <li className='mb-4'>I assume that similar AI tools are going to be great at quickly producing "boilerplate" code, because boilerplate is usually generated by by some program or algorithm and so It's inherently a pattern. Now the question becomes, when is a piece of code "boilerplate"? If it can reproduce a sudoku game, can we say that the logic of a sudoku game is "just boilerplate", what about the other features like the (inspired by Severance) wiggly numbers? I'm not sure I'd call a feature like that 'boilerplate', or perhaps im just not as creative as I thought I was 😅.</li>
+        <li className='mb-4'>Having a LLM serve as "pattern detector" and notifying us when we are actually writing patterned code and continuing writing it for us is great. But I think that we as programmers sooner or later develop a sense of what code is patterned or can be patterned and our instincts usually lead us to <TextLink text="Don't repeat our selves" link="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself"/> or create abstractions. And if it doesn't, there are probably concrete reasons preventing us from doing so.</li>
+      </ul>
     </div>
   );
 };
