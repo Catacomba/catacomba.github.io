@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef }  from 'react';
 import VibeDoku from './pages/vibedoku.jsx';
+import Terminal from './pages/terminal.jsx';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('Home');
@@ -35,7 +36,7 @@ const App = () => {
         {activeTab === Tab.PROFILE && <p> This will contain profile </p>}
         {activeTab === Tab.BLOG && <div> This will contain blogs </div>}
         {activeTab === Tab.PROJECTS && <p><VibeDoku /> </p>}
-        {activeTab === Tab.CONTACT && <p> This will contain contact information </p>}
+        {activeTab === Tab.CONTACT && <p> <Terminal /> </p>}
       </div>
     </div>
   );
