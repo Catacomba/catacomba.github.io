@@ -32,10 +32,10 @@ const App = () => {
       </div>
 
       <div className="p-6 text-center">
-        {activeTab === Tab.PROFILE && <p>🏠 Welcome to Vibedoku!</p>}
-        {activeTab === Tab.BLOG && <div> <VibeDoku /> </div>}
-        {activeTab === Tab.PROJECTS && <p>🏆 Top scores will show here.</p>}
-        {activeTab === Tab.CONTACT && <p>⚙️ Customize your experience.</p>}
+        {activeTab === Tab.PROFILE && <p> This will contain profile </p>}
+        {activeTab === Tab.BLOG && <div> This will contain blogs </div>}
+        {activeTab === Tab.PROJECTS && <p><VibeDoku /> </p>}
+        {activeTab === Tab.CONTACT && <p> This will contain contact information </p>}
       </div>
     </div>
   );
